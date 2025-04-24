@@ -12,63 +12,23 @@ public class Operatore {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+	private Long id;
 	@Column(nullable=false)
-	private String firstName;
+	private String nome;
 	@Column(nullable=false)
-	private String lastName;
+	private String cognome;
+	@Column(nullable=false)
 	private String email;
-	private LocalDate dateOfBirth;
-	private LocalDateTime registration;
+	@Column(nullable=false)
+	private LocalDate dataDiNascita;
+	private LocalDateTime dataDiRegistrazione;
 	@OneToMany(mappedBy="operatore")
 	private List<Video> videoCaricati;
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-	public LocalDateTime getRegistration() {
-		return registration;
-	}
-	public void setRegistration(LocalDateTime registration) {
-		this.registration = registration;
-	}
-	public List<Video> getVideoCaricati() {
-		return videoCaricati;
-	}
-	public void setVideoCaricati(List<Video> videoCaricati) {
-		this.videoCaricati = videoCaricati;
-	}
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateOfBirth, email, firstName, lastName);
+		return Objects.hash(cognome, dataDiNascita, email, nome);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -79,9 +39,51 @@ public class Operatore {
 		if (getClass() != obj.getClass())
 			return false;
 		Operatore other = (Operatore) obj;
-		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName);
+		return Objects.equals(cognome, other.cognome) && Objects.equals(dataDiNascita, other.dataDiNascita)
+				&& Objects.equals(email, other.email) && Objects.equals(nome, other.nome);
 	}
-	
-	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCognome() {
+		return cognome;
+	}
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public LocalDate getDataDiNascita() {
+		return dataDiNascita;
+	}
+	public void setDataDiNascita(LocalDate dataDiNascita) {
+		this.dataDiNascita = dataDiNascita;
+	}
+	public LocalDateTime getDataDiRegistrazione() {
+		return dataDiRegistrazione;
+	}
+	public void setDataDiRegistrazione(LocalDateTime dataDiRegistrazione) {
+		this.dataDiRegistrazione = dataDiRegistrazione;
+	}
+	public List<Video> getVideoCaricati() {
+		return videoCaricati;
+	}
+	public void setVideoCaricati(List<Video> videoCaricati) {
+		this.videoCaricati = videoCaricati;
+	}
+
+
 }
