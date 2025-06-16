@@ -50,7 +50,7 @@ public class AuthConfiguration {
                 .authorizeHttpRequests()
 
                 // pagine e risorse su cui tutti possono fare GET
-                .requestMatchers(HttpMethod.GET,"/","/login","/register","/index","/author/**","/authors","/search","/book/**","/books","/css/**", "/images/**", "favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.GET,"/","/login","/register","/index","/css/**", "/images/**", "favicon.ico").permitAll()
                 // pagine e risorse su cui tutti possono fare POST
                 .requestMatchers(HttpMethod.POST,"/search","/register","/login").permitAll()
 
