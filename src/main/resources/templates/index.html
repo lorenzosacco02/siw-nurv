@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="it">
-<head th:replace="~{fragments/header :: header(title='SiwFood - Homepage')}"></head>
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 <body>
-	<h1>Benvenuto</h1>
+	<h1 class="title">Benvenuto</h1>
+
+	<a th:href="@{/login}" class="image-link d-block rounded shadow"> Login</a>
+	<a th:href="@{/logout}" class="image-link d-block rounded shadow"> Logout</a>
+	<a th:href="@{/register}" class="image-link d-block rounded shadow"> Registrati</a>
+	<div th:if="${userDetails != null and isAdmin}">
+		Sono Admin
+	</div>
+	<div th:if="${userDetails != null and isDefault}">
+		Sono Default
+	</div>
 
 </body>
 
