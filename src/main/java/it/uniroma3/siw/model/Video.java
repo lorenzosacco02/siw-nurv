@@ -1,6 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,12 +8,15 @@ import jakarta.persistence.*;
 
 @Entity
 public class Video {
+
+	public static final long MAX_SIZE = 50L * 1024 * 1024;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne
-	private Operatore operatore;
+	private User user;
 	
 	@OneToMany(mappedBy = "video")
 	private List<Anomalia> anomalie;
@@ -21,17 +24,18 @@ public class Video {
 	@ManyToOne
 	private Tratta tratta;
 
-	@Column(nullable=false)
+	@Column(columnDefinition = "bytea")
 	private byte[] file;
 	
-	private LocalDateTime pubblicazione;
+	private LocalDate data;
 
+	private String nome;
 
-	public LocalDateTime getPubblicazione() {
-		return pubblicazione;
+	public LocalDate getData() {
+		return data;
 	}
-	public void setPubblicazione(LocalDateTime pubblicazione) {
-		this.pubblicazione = pubblicazione;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 	public Long getId() {
 		return id;
@@ -39,11 +43,11 @@ public class Video {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Operatore getOperatore() {
-		return operatore;
+	public User getUser() {
+		return user;
 	}
-	public void setOperatore(Operatore operatore) {
-		this.operatore = operatore;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public List<Anomalia> getAnomalie() {
 		return anomalie;
@@ -58,6 +62,14 @@ public class Video {
 		this.tratta = tratta;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public byte[] getFile() {
 		return file;
 	}
@@ -68,7 +80,7 @@ public class Video {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(operatore, pubblicazione, tratta);
+		return Objects.hash(user, data, tratta);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -79,7 +91,7 @@ public class Video {
 		if (getClass() != obj.getClass())
 			return false;
 		Video other = (Video) obj;
-		return Objects.equals(operatore, other.operatore) && Objects.equals(pubblicazione, other.pubblicazione)
+		return Objects.equals(user, other.user) && Objects.equals(data, other.data)
 				&& Objects.equals(tratta, other.tratta);
 	}
 

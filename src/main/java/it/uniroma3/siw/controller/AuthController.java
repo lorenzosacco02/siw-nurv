@@ -55,7 +55,7 @@ public class AuthController {
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				model.addAttribute("user", userService.getCurrentUser());
-				return "admin/index";
+				return "/user/admin/index";
 			}
 			if (credentials != null && credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
 				model.addAttribute("tratte", trattaService.getAll());

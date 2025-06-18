@@ -18,6 +18,9 @@ public class User {
     @NotBlank(message = "Specifica un Nome")
     private String name;
 
+    @OneToMany(mappedBy = "user")
+    private List<Anomalia> anomalie;
+
     @NotBlank(message = "Specifica un Cognome")
     private String surname;
 
@@ -57,6 +60,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Anomalia> getAnomalie() {
+        return anomalie;
+    }
+
+    public void setAnomalie(List<Anomalia> anomalie) {
+        this.anomalie = anomalie;
     }
 
     public Image getProfilePicture() {

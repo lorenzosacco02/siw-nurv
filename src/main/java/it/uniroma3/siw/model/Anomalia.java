@@ -9,11 +9,18 @@ public class Anomalia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private int gravita;
+
 	private String descrizione;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private TipoDiAnomalia tipoAnomalia;
+
+	@ManyToOne
+	private User user;
+
 	@ManyToOne
 	private Video video;
 
@@ -62,5 +69,13 @@ public class Anomalia {
 	}
 	public void setVideo(Video video) {
 		this.video = video;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

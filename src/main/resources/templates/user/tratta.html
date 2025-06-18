@@ -8,8 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/tratta.css">
 </head>
 <body>
 
@@ -19,27 +20,120 @@
     <h2 class="mb-4 text-center" th:text="${tratta.nome}">Nome tratta</h2>
     <p class="text-muted text-center" th:text="${tratta.descrizione}">Descrizione tratta</p>
 
-    <!-- Video principale (primo associato) -->
-    <div th:if="${tratta.videoAssociati != null and !tratta.videoAssociati.isEmpty()}">
-        <div class="ratio ratio-16x9 mb-4">
-            <video controls th:src="@{'/video/' + ${tratta.videoAssociati[0].id} + '/stream'}" class="w-100 rounded-4 shadow"></video>
+    <!-- Carousel per i video associati -->
+    <div th:each="video, iterStat : ${tratta.videoAssociati}"
+         th:classappend="${iterStat.index == 0} ? ' active' : ''"
+         class="carousel-item">
+
+        <div class="ratio ratio-16x9 mb-3">
+            <video controls class="w-100 rounded-4 shadow"
+                   th:src="@{'/video/' + ${video.id} + '/stream'}"></video>
+        </div>
+
+        <!-- Titolo e data -->
+        <div class="video-info mb-3 text-center">
+            <h5 th:text="${video.nome}"></h5>
+            <small class="text-muted" th:if="${video.data != null}"
+                   th:text="${#temporals.format(video.data, 'dd/MM/yyyy')}"></small>
+        </div>
+
+        <!-- Bottone aggiungi anomalia -->
+        <div class="text-center mb-4">
+            <a th:href="@{'/video/' + ${video.id} + '/addAnomalia'}" class="btn btn-danger anomaly-btn" title="Aggiungi anomalia">
+                <i class="bi bi-exclamation-triangle-fill"></i> Segnala anomalia
+            </a>
+        </div>
+
+        <div class="carousel-caption d-none d-md-block">
+            <!-- Se vuoi mantenere qualcosa qui -->
         </div>
     </div>
-    <div th:if="${tratta.videoAssociati == null or tratta.videoAssociati.isEmpty()}">
-        <div class="alert alert-info">Nessun video associato a questa tratta.</div>
-    </div>
+
 
     <!-- Anomalie di tutti i video -->
-    <div th:each="video : ${tratta.videoAssociati}">
-        <h5 th:text="'Anomalie nel video #' + ${video.id}" class="mt-4 mb-2 text-primary"></h5>
-        <ul class="list-group mb-4" th:if="${video.anomalie != null and !video.anomalie.isEmpty()}">
-            <li class="list-group-item" th:each="anomalia : ${video.anomalie}">
-                <strong th:text="${anomalia.tipo}">Tipo</strong>: <span th:text="${anomalia.descrizione}">Descrizione</span>
+    <div th:each="video : ${tratta.videoAssociati}"
+         th:id="'anomalia-video-' + ${video.id}"
+         class="anomalie-video p-3 border rounded shadow-sm bg-light" style="display:none;">
+        <h5 th:text="'Anomalie nel video #' + ${video.id}" class="mb-3 text-primary"></h5>
+        <ul class="list-group" th:if="${video.anomalie != null and !video.anomalie.isEmpty()}">
+            <li class="list-group-item d-flex justify-content-between align-items-start"
+                th:each="anomalia : ${video.anomalie}">
+
+                <div>
+                    <strong th:text="${anomalia.tipoAnomalia}">Tipo</strong>:
+                    <span th:text="${anomalia.descrizione}">Descrizione</span>
+                    <br/>
+                    <small class="text-muted">
+                        Segnalata da: <span th:text="${anomalia.user.name} + ' ' + ${anomalia.user.surname}">Nome Cognome</span>
+                    </small>
+                </div>
+
+                <span class="badge bg-danger rounded-pill gravita-badge" th:text="${anomalia.gravita}">3</span>
             </li>
         </ul>
         <p class="text-muted" th:if="${video.anomalie == null or video.anomalie.isEmpty()}">Nessuna anomalia registrata.</p>
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    var videoCarousel = document.getElementById('videoCarousel');
+
+    // Funzione per mostrare anomalie relative al video attivo
+    function mostraAnomalie(videoId) {
+        // Nascondi tutte
+        document.querySelectorAll('.anomalie-video').forEach(function(el) {
+            el.style.display = 'none';
+        });
+        // Mostra quella corrispondente al videoId
+        var elem = document.getElementById('anomalia-video-' + videoId);
+        if (elem) elem.style.display = 'block';
+    }
+
+    // All'avvio mostra anomalie del primo video attivo
+    window.addEventListener('load', function() {
+        var activeItem = videoCarousel.querySelector('.carousel-item.active');
+        if (activeItem) {
+            var videoId = activeItem.querySelector('video').getAttribute('th:src');
+            // Extract id dal src tipo "/video/123/stream"
+            var src = activeItem.querySelector('video').getAttribute('src'); // attenzione: th:src diventa src al rendering
+            if (!src) {
+                src = activeItem.querySelector('video').getAttribute('th:src'); // fallback
+            }
+            if (src) {
+                var match = src.match(/\/video\/(\d+)\/stream/);
+                if (match) {
+                    mostraAnomalie(match[1]);
+                }
+            }
+        }
+    });
+
+    // Al cambio slide aggiorna le anomalie
+    videoCarousel.addEventListener('slide.bs.carousel', function (event) {
+        var nextSlide = event.relatedTarget;
+        var video = nextSlide.querySelector('video');
+        if (video) {
+            var src = video.getAttribute('src'); // al rendering th:src diventa src
+            if (src) {
+                var match = src.match(/\/video\/(\d+)\/stream/);
+                if (match) {
+                    mostraAnomalie(match[1]);
+                }
+            }
+        }
+
+        // Ferma e riavvolgi tutti i video
+        var videos = videoCarousel.querySelectorAll('video');
+        videos.forEach(function(video) {
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+</script>
+
 
 </body>
 </html>

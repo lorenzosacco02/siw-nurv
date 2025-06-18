@@ -15,4 +15,8 @@ public class VideoService {
     public Video getById(Long id) {
         return videoRepository.findById(id).orElse(null);
     }
+
+    public void save(Video video) {
+        this.videoRepository.save(video);
+    }
 }
