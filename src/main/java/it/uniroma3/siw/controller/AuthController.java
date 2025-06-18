@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.TrattaService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class AuthController {
 	private CredentialsService credentialsService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TrattaService trattaService;
 
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
@@ -55,6 +58,7 @@ public class AuthController {
 				return "admin/index";
 			}
 			if (credentials != null && credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+				model.addAttribute("tratte", trattaService.getAll());
 				model.addAttribute("user", userService.getCurrentUser());
 				return "user/index";
 			}

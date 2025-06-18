@@ -9,11 +9,28 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/home.css" />
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container my-5">
+    <h2 class="mb-4">Elenco delle tratte ferroviarie</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" th:each="tratta : ${tratte}">
+            <div class="card h-100 border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title text-primary" th:text="${tratta.nome}">Nome tratta</h5>
+                    <p class="card-text text-muted" th:text="${tratta.descrizione}">Descrizione tratta</p>
+                    <a th:href="@{'/tratte/' + ${tratta.id}}" class="btn btn-outline-primary btn-sm">
+                        Visualizza dettagli
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
