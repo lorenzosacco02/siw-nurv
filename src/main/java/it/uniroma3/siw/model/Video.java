@@ -11,15 +11,19 @@ public class Video {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
 	@ManyToOne
 	private Operatore operatore;
+	
 	@OneToMany(mappedBy = "video")
 	private List<Anomalia> anomalie;
+	
 	@ManyToOne
 	private Tratta tratta;
+
 	@Column(nullable=false)
-	private String filePath;
-	@Column(nullable=false)
+	private byte[] file;
+	
 	private LocalDateTime pubblicazione;
 
 
@@ -53,12 +57,15 @@ public class Video {
 	public void setTratta(Tratta tratta) {
 		this.tratta = tratta;
 	}
-	public String getFilePath() {
-		return filePath;
+
+	public byte[] getFile() {
+		return file;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(operatore, pubblicazione, tratta);

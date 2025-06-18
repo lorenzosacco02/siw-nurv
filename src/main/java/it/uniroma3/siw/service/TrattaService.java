@@ -15,8 +15,14 @@ public class TrattaService{
     @Autowired
     private TrattaRepository trattaRepository;
 
+    @Transactional
     public Iterable<Tratta> getAll(){
         return this.trattaRepository.findAll();
+    }
+
+    @Transactional
+    public Tratta getById(Long id){
+        return this.trattaRepository.findById(id).orElse(null);
     }
 }
 

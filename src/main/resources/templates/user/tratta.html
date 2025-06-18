@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettaglio tratta</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container my-5">
+    <h2 class="mb-4 text-center" th:text="${tratta.nome}">Nome tratta</h2>
+    <p class="text-muted text-center" th:text="${tratta.descrizione}">Descrizione tratta</p>
+
+    <!-- Video principale (primo associato) -->
+    <div th:if="${tratta.videoAssociati != null and !tratta.videoAssociati.isEmpty()}">
+        <div class="ratio ratio-16x9 mb-4">
+            <video controls th:src="@{'/video/' + ${tratta.videoAssociati[0].id} + '/stream'}" class="w-100 rounded-4 shadow"></video>
+        </div>
+    </div>
+    <div th:if="${tratta.videoAssociati == null or tratta.videoAssociati.isEmpty()}">
+        <div class="alert alert-info">Nessun video associato a questa tratta.</div>
+    </div>
+
+    <!-- Anomalie di tutti i video -->
+    <div th:each="video : ${tratta.videoAssociati}">
+        <h5 th:text="'Anomalie nel video #' + ${video.id}" class="mt-4 mb-2 text-primary"></h5>
+        <ul class="list-group mb-4" th:if="${video.anomalie != null and !video.anomalie.isEmpty()}">
+            <li class="list-group-item" th:each="anomalia : ${video.anomalie}">
+                <strong th:text="${anomalia.tipo}">Tipo</strong>: <span th:text="${anomalia.descrizione}">Descrizione</span>
+            </li>
+        </ul>
+        <p class="text-muted" th:if="${video.anomalie == null or video.anomalie.isEmpty()}">Nessuna anomalia registrata.</p>
+    </div>
+</div>
+
+</body>
+</html>
