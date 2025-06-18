@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -21,6 +22,8 @@ public class AuthController {
 
 	@Autowired
 	private CredentialsService credentialsService;
+    @Autowired
+    private UserService userService;
 
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
@@ -48,7 +51,12 @@ public class AuthController {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials != null && credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-				return "admin/indexAdmin";
+				model.addAttribute("user", userService.getCurrentUser());
+				return "admin/index";
+			}
+			if (credentials != null && credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+				model.addAttribute("user", userService.getCurrentUser());
+				return "user/index";
 			}
 		}
 		return "index";
@@ -75,4 +83,6 @@ public class AuthController {
 		model.addAttribute("user", user);
 		return "login";
 	}
+
+
 }

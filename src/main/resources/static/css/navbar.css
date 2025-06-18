@@ -23,3 +23,19 @@
     color: #667d98 !important;
     text-decoration: underline;
 }
+
+.logo-img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.profile-pic-nav{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+}

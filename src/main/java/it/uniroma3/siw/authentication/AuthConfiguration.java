@@ -22,6 +22,9 @@ import static it.uniroma3.siw.model.Credentials.*;
 public class AuthConfiguration {
 
     @Autowired
+    CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
     private DataSource dataSource;
 
     @Autowired
@@ -71,9 +74,22 @@ public class AuthConfiguration {
                 .and().formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/success",true)
+                .defaultSuccessUrl("/profile",true)
                 .failureUrl("/login?error=true")
+
+                // 👉 CREA NUOVA SESSIONE:
+                .and().sessionManagement()
+                .sessionFixation().newSession()
+
+                // OAUTH:
                 .and()
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/profile", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                )
 
 
                 // LOGOUT:
