@@ -1,6 +1,6 @@
 package it.uniroma3.siw.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,61 +8,90 @@ import jakarta.persistence.*;
 
 @Entity
 public class Video {
+
+	public static final long MAX_SIZE = 100L * 1024 * 1024;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@ManyToOne
-	private Operatore operatore;
-	@OneToMany(mappedBy = "video")
+	private User user;
+	
+	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Anomalia> anomalie;
+	
 	@ManyToOne
 	private Tratta tratta;
-	@Column(nullable=false)
-	private String filePath;
-	@Column(nullable=false)
-	private LocalDateTime pubblicazione;
 
+	@Column(columnDefinition = "bytea")
+	private byte[] file;
+	
+	private LocalDate data;
 
-	public LocalDateTime getPubblicazione() {
-		return pubblicazione;
+	private String nome;
+
+	public LocalDate getData() {
+		return data;
 	}
-	public void setPubblicazione(LocalDateTime pubblicazione) {
-		this.pubblicazione = pubblicazione;
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Operatore getOperatore() {
-		return operatore;
+
+	public User getUser() {
+		return user;
 	}
-	public void setOperatore(Operatore operatore) {
-		this.operatore = operatore;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
+
 	public List<Anomalia> getAnomalie() {
 		return anomalie;
 	}
+
 	public void setAnomalie(List<Anomalia> anomalie) {
 		this.anomalie = anomalie;
 	}
+
 	public Tratta getTratta() {
 		return tratta;
 	}
+
 	public void setTratta(Tratta tratta) {
 		this.tratta = tratta;
 	}
-	public String getFilePath() {
-		return filePath;
+
+	public String getNome() {
+		return nome;
 	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
+
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(operatore, pubblicazione, tratta);
+		return Objects.hash(user, data, tratta);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -72,7 +101,7 @@ public class Video {
 		if (getClass() != obj.getClass())
 			return false;
 		Video other = (Video) obj;
-		return Objects.equals(operatore, other.operatore) && Objects.equals(pubblicazione, other.pubblicazione)
+		return Objects.equals(user, other.user) && Objects.equals(data, other.data)
 				&& Objects.equals(tratta, other.tratta);
 	}
 

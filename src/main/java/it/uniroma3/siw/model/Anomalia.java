@@ -9,11 +9,20 @@ public class Anomalia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	private boolean risolta = false;
+
 	private int gravita;
+
 	private String descrizione;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private TipoDiAnomalia tipoAnomalia;
+
+	@ManyToOne
+	private User user;
+
 	@ManyToOne
 	private Video video;
 
@@ -33,34 +42,60 @@ public class Anomalia {
 		Anomalia other = (Anomalia) obj;
 		return gravita == other.gravita && tipoAnomalia == other.tipoAnomalia && Objects.equals(video, other.video);
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public int getGravita() {
 		return gravita;
 	}
+
 	public void setGravita(int gravita) {
 		this.gravita = gravita;
 	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+
 	public TipoDiAnomalia getTipoAnomalia() {
 		return tipoAnomalia;
 	}
+
 	public void setTipoAnomalia(TipoDiAnomalia tipoAnomalia) {
 		this.tipoAnomalia = tipoAnomalia;
 	}
+
 	public Video getVideo() {
 		return video;
 	}
+
 	public void setVideo(Video video) {
 		this.video = video;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public boolean getRisolta() {
+		return risolta;
+	}
+
+	public void setRisolta(boolean risolta) {
+		this.risolta = risolta;
 	}
 }

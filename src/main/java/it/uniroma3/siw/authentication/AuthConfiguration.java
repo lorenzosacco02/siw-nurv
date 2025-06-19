@@ -22,6 +22,9 @@ import static it.uniroma3.siw.model.Credentials.*;
 public class AuthConfiguration {
 
     @Autowired
+    CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
     private DataSource dataSource;
 
     @Autowired
@@ -50,7 +53,7 @@ public class AuthConfiguration {
                 .authorizeHttpRequests()
 
                 // pagine e risorse su cui tutti possono fare GET
-                .requestMatchers(HttpMethod.GET,"/","/login","/register","/index","/author/**","/authors","/search","/book/**","/books","/css/**", "/images/**", "favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.GET,"/","/login","/register","/index","/css/**", "/images/**", "favicon.ico").permitAll()
                 // pagine e risorse su cui tutti possono fare POST
                 .requestMatchers(HttpMethod.POST,"/search","/register","/login").permitAll()
 
@@ -71,9 +74,22 @@ public class AuthConfiguration {
                 .and().formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/success",true)
+                .defaultSuccessUrl("/profile",true)
                 .failureUrl("/login?error=true")
+
+                // 👉 CREA NUOVA SESSIONE:
+                .and().sessionManagement()
+                .sessionFixation().newSession()
+
+                // OAUTH:
                 .and()
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/profile", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                )
 
 
                 // LOGOUT:

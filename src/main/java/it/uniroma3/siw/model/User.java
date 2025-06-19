@@ -18,19 +18,17 @@ public class User {
     @NotBlank(message = "Specifica un Nome")
     private String name;
 
+    @OneToMany(mappedBy = "user")
+    private List<Anomalia> anomalie;
+
     @NotBlank(message = "Specifica un Cognome")
     private String surname;
-
-    @NotBlank(message = "Specifica uno Username")
-    private String username;
-
-    @NotBlank(message = "Specifica una Password")
-    private String password;
 
     @NotBlank(message = "Specifica una Email")
     private String email;
 
-    private String role; // "USER" o "ADMIN"
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Image profilePicture;
 
     public Long getId() {
         return id;
@@ -56,29 +54,6 @@ public class User {
         this.surname = surname;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -87,15 +62,31 @@ public class User {
         this.email = email;
     }
 
+    public List<Anomalia> getAnomalie() {
+        return anomalie;
+    }
+
+    public void setAnomalie(List<Anomalia> anomalie) {
+        this.anomalie = anomalie;
+    }
+
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Image profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole());
+        return Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUsername(), getPassword(), getRole());
+        return Objects.hash(name, surname, email);
     }
 }

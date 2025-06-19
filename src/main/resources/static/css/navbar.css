@@ -1,0 +1,41 @@
+/* Navbar */
+.navbar-custom {
+    background-color: #7190b1; /* marrone caldo */
+    box-shadow: 0 2px 6px rgba(75, 59, 43, 0.3);
+    height: 70px; /* altezza navbar */
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #f5f0e6 !important; /* beige chiaro */
+    font-weight: 600;
+    font-family: "Palatino Linotype", Palatino, serif;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #064e95 !important; /* tan chiaro */
+    text-decoration: underline;
+}
+
+/* Navbar active and focus */
+.navbar-custom .nav-link.active,
+.navbar-custom .nav-link:focus {
+    color: #667d98 !important;
+    text-decoration: underline;
+}
+
+.logo-img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+.profile-pic-nav{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f0f0f0;
+}
