@@ -24,5 +24,14 @@ public class TrattaService{
     public Tratta getById(Long id){
         return this.trattaRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public Tratta save(Tratta tratta){
+        return this.trattaRepository.save(tratta);
+    }
+
+    public void delete(Long trattaId) {
+        this.trattaRepository.deleteById(trattaId);
+    }
 }
 

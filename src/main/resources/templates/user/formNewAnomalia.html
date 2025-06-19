@@ -18,6 +18,8 @@
 
 <div class="mt-4">
     <h5>Aggiungi Anomalia</h5>
+
+    <!-- Aggiugni Video -->
     <form th:action="@{'/video/' + ${video_id} + '/addAnomalia'}" th:object="${anomalia}" method="post">
         <div class="mb-3">
             <label class="form-label">Tipo di Anomalia</label>
@@ -26,14 +28,26 @@
                         th:value="${tipo}" th:text="${tipo}"></option>
             </select>
         </div>
+
+        <!-- Setta Gravita -->
         <div class="mb-3">
             <label class="form-label">Gravità</label>
             <input type="number" class="form-control" th:field="*{gravita}" min="1" max="5" required>
         </div>
+
+        <!-- Scrivi Descrizione -->
         <div class="mb-3">
             <label class="form-label">Descrizione</label>
             <textarea class="form-control" th:field="*{descrizione}" rows="3" required></textarea>
         </div>
+
+        <!-- Risolta -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox"
+                   th:field="*{risolta}" id="risolta">
+            <label class="form-check-label" for="risolta">Risolta</label>
+        </div>
+        
         <button type="submit" class="btn btn-primary">Aggiungi Anomalia</button>
     </form>
 </div>

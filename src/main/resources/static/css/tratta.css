@@ -3,13 +3,21 @@
     margin-bottom: 0.2rem;
 }
 
+.video-info small {
+    display: block;
+}
+
+
 .anomaly-btn {
     font-weight: 600;
     font-size: 1.1rem;
     padding: 0.5rem 1.2rem;
     box-shadow: 0 3px 8px rgba(220, 53, 69, 0.5);
     transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
+
 
 .anomaly-btn:hover {
     background-color: #b02a37;
@@ -17,8 +25,7 @@
 }
 
 .anomalie-video {
-    max-width: 700px;
-    margin: 0 auto 2rem auto;
+    margin-top: 1rem;
 }
 
 .gravita-badge {
@@ -26,4 +33,63 @@
     min-width: 2.2em;
     text-align: center;
     line-height: 1.5;
+}
+
+.carousel-item {
+    padding-bottom: 2rem;
+}
+
+
+ .carousel-control-prev,
+ .carousel-control-next {
+     top: 50%;
+     transform: translateY(-50%);
+     width: 4rem;
+     height: 4rem;
+     background-color: rgba(0, 0, 0, 0.3);
+     border-radius: 50%;
+     justify-content: center;
+     align-items: center;
+     display: flex;
+ }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 70% 70%;
+}
+
+/* Impedisci che il form venga coperto */
+.carousel-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.form-check {
+    margin-top: 0.5rem;
+}
+
+.video-wrapper {
+    position: relative;
+}
+
+.small-carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-control-prev.small-carousel-control {
+    left: 1rem;
+}
+
+.carousel-control-next.small-carousel-control {
+    right: 1rem;
 }

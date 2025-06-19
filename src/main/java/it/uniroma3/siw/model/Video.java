@@ -18,7 +18,7 @@ public class Video {
 	@ManyToOne
 	private User user;
 	
-	@OneToMany(mappedBy = "video")
+	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE)
 	private List<Anomalia> anomalie;
 	
 	@ManyToOne

@@ -29,7 +29,8 @@ public class AuthController {
     private TrattaService trattaService;
 
 	@GetMapping("/accessDenied")
-	public String accessDenied() {
+	public String accessDenied(Model model) {
+		model.addAttribute("user", userService.getCurrentUser());
 		return "accessDenied";
 	}
 

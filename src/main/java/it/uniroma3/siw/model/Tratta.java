@@ -10,49 +10,63 @@ public class Tratta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(nullable=false)
 	private String nome;
+
 	private String descrizione;
-	@OneToMany(mappedBy="tratta")
+
+	@OneToMany(mappedBy="tratta", cascade=CascadeType.REMOVE)
 	private List<Video> videoAssociati;
+
 	@ManyToOne
 	private Mappa mappa;
-
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getDescrizione() {
 		return descrizione;
 	}
+
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+
 	public List<Video> getVideoAssociati() {
 		return videoAssociati;
 	}
+
 	public void setVideoAssociati(List<Video> video) {
 		this.videoAssociati = video;
 	}
+
 	public Mappa getMappa() {
 		return mappa;
 	}
+
 	public void setMappa(Mappa mappa) {
 		this.mappa = mappa;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(mappa, nome);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

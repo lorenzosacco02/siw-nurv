@@ -7,6 +7,7 @@ import it.uniroma3.siw.repository.VideoRepository;
 import it.uniroma3.siw.service.AnomaliaService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.service.VideoService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ public class AnomaliaController {
     public String aggiungiAnomalia(@PathVariable Long videoId, Model model) {
         model.addAttribute("anomalia", new Anomalia());
         model.addAttribute("video_id", videoId);
+        model.addAttribute("user", userService.getCurrentUser());
         return "user/formNewAnomalia";
     }
 
@@ -39,6 +41,7 @@ public class AnomaliaController {
     public String salvaAnomalia(@PathVariable Long videoId,
                                    @RequestParam TipoDiAnomalia tipoAnomalia,
                                    @RequestParam int gravita,
+                                   @RequestParam(required = false) boolean risolta,
                                    @RequestParam String descrizione) {
 
         Video video = videoService.getById(videoId);
@@ -47,6 +50,8 @@ public class AnomaliaController {
         }
 
         Anomalia anomalia = new Anomalia();
+        if(risolta)
+            anomalia.setRisolta(true);
         anomalia.setTipoAnomalia(tipoAnomalia);
         anomalia.setGravita(gravita);
         anomalia.setDescrizione(descrizione);
@@ -56,6 +61,20 @@ public class AnomaliaController {
         anomaliaService.save(anomalia);
 
         return "redirect:/tratta/" + video.getTratta().getId();
+    }
+
+    @PostMapping("/admin/anomalia/{anomalia_id}/updateRisolta")
+    public String aggiornaRisolta(
+            @PathVariable Long anomalia_id,
+            @RequestParam(value = "risolta", required = false) Boolean risolta) {
+        Anomalia anomalia = anomaliaService.getById(anomalia_id);
+        if (anomalia != null) {
+            anomalia.setRisolta(Boolean.TRUE.equals(risolta)); // imposta false se null
+            anomaliaService.save(anomalia);
+        }
+
+
+        return "redirect:/tratta/"+ anomalia.getVideo().getTratta().getId() + "#listaAnomalie";
     }
 
 }

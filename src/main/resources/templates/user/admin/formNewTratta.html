@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiungi Video</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Carica un nuovo video</h2>
+
+    <div th:if="${uploadError}" class="alert alert-danger" th:text="${uploadError}"></div>
+
+    <form th:object="${tratta}" th:action="@{'/admin/addTratta'}" method="post" enctype="multipart/form-data">
+
+        <!-- Specifica il Nome-->
+        <div class="mb-3">
+            <label class="form-label">Nome della Tratta</label>
+            <input type="text" class="form-control" th:field="*{nome}" placeholder="Inserisci un titolo del video" required>
+        </div>
+
+        <!-- Scrivi Descrizione -->
+        <div class="mb-3">
+            <label class="form-label">Descrizione</label>
+            <textarea class="form-control" th:field="*{descrizione}" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Aggiungi Tratta</button>
+    </form>
+</div>
+
+</body>
+</html>
