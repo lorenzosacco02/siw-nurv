@@ -15,6 +15,44 @@
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
+
+<form method="get" th:action="@{/search}">
+    <div class="row mb-4 align-items-end">
+        <div class="col-md-6">
+            <label for="nome" class="form-label">Cerca per nome</label>
+            <input type="text" id="nome" name="nome" class="form-control"
+                   th:value="${param.nome}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="anomalia" class="form-label">Tipo di Anomalia</label>
+            <select class="form-select" id="anomalia" name="anomalia">
+                <option value = "">-- Nessuna selezione --</option> <!-- Opzione vuota -->
+                <option th:each="tipo : ${T(it.uniroma3.siw.model.TipoDiAnomalia).values()}"
+                        th:value="${tipo}" th:text="${tipo}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="sort" class="form-label">Ordina per</label>
+            <select id="sort" name="sort" class="form-select" th:value="${param.sort}">
+                <option value="A-Z">Nome (A-Z)</option>
+                <option value="Z-A">Nome (Z-A)</option>
+                <option value="moreAnomalie">Numero di Anomalie (decrescente)</option>
+                <option value="lessAnomalie">Numero di Anomalie (crescente)</option>
+                <option value="moreVideos">Numero di Video (decrescente)</option>
+                <option value="lessVideos">Numero di Video (crescente)</option>
+
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Applica</button>
+        </div>
+    </div>
+</form>
+
+
 <div class="container my-5">
     <h2 class="mb-4">Elenco delle tratte ferroviarie</h2>
     <div class="row g-4">

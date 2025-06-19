@@ -1,6 +1,9 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.validator.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.TipoDiAnomalia;
+import it.uniroma3.siw.model.Tratta;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.TrattaService;
@@ -17,6 +20,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AuthController {
@@ -27,6 +35,8 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private TrattaService trattaService;
+	@Autowired
+	private CredentialsValidator credentialsValidator;
 
 	@GetMapping("/accessDenied")
 	public String accessDenied(Model model) {
@@ -46,7 +56,7 @@ public class AuthController {
 		return "login";
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "/" )
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
@@ -67,6 +77,17 @@ public class AuthController {
 		return "index";
 	}
 
+
+	@GetMapping("/search")
+	public String search(@RequestParam(value = "nome", required = false) String nome,
+						 @RequestParam(value = "anomalia" , required = false) TipoDiAnomalia anomalia,
+						 @RequestParam(value = "sort", required = false) String sort,
+						 Model model) {
+		model.addAttribute("user", userService.getCurrentUser());
+		model.addAttribute("tratte", trattaService.getFilteredSorted(sort, nome, anomalia));
+		return "user/index";
+	}
+
 	@GetMapping(value = "/success")
 	public String defaultAfterLogin() {
 		return "redirect:/";
@@ -75,9 +96,11 @@ public class AuthController {
 	@PostMapping(value = {"/register"})
 	public String registerUser(@ModelAttribute("user") User user,
 							   BindingResult userBindingResult,
-							   @ModelAttribute("credentials") Credentials credentials,
+							   @Valid @ModelAttribute("credentials") Credentials credentials,
 							   BindingResult credentialsBindingResult,
 							   Model model) {
+
+		credentialsValidator.validate(credentials, credentialsBindingResult);
 		if (userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
 			model.addAttribute("credentials", credentials);
 			model.addAttribute("user", user);

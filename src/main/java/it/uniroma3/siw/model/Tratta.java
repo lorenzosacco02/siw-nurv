@@ -19,9 +19,6 @@ public class Tratta {
 	@OneToMany(mappedBy="tratta", cascade=CascadeType.REMOVE)
 	private List<Video> videoAssociati;
 
-	@ManyToOne
-	private Mappa mappa;
-
 	public Long getId() {
 		return id;
 	}
@@ -54,17 +51,9 @@ public class Tratta {
 		this.videoAssociati = video;
 	}
 
-	public Mappa getMappa() {
-		return mappa;
-	}
-
-	public void setMappa(Mappa mappa) {
-		this.mappa = mappa;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(mappa, nome);
+		return Objects.hash(descrizione, nome);
 	}
 
 	@Override
@@ -76,7 +65,7 @@ public class Tratta {
 		if (getClass() != obj.getClass())
 			return false;
 		Tratta other = (Tratta) obj;
-		return Objects.equals(mappa, other.mappa) && Objects.equals(nome, other.nome);
+		return Objects.equals(descrizione, other.descrizione) && Objects.equals(nome, other.nome);
 	}
 
 

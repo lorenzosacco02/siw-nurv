@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Entity
 public class Video {
 
-	public static final long MAX_SIZE = 50L * 1024 * 1024;
+	public static final long MAX_SIZE = 100L * 1024 * 1024;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Video {
 	@ManyToOne
 	private User user;
 	
-	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Anomalia> anomalie;
 	
 	@ManyToOne
@@ -34,30 +34,39 @@ public class Video {
 	public LocalDate getData() {
 		return data;
 	}
+
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public List<Anomalia> getAnomalie() {
 		return anomalie;
 	}
+
 	public void setAnomalie(List<Anomalia> anomalie) {
 		this.anomalie = anomalie;
 	}
+
 	public Tratta getTratta() {
 		return tratta;
 	}
+
 	public void setTratta(Tratta tratta) {
 		this.tratta = tratta;
 	}
@@ -82,6 +91,7 @@ public class Video {
 	public int hashCode() {
 		return Objects.hash(user, data, tratta);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
