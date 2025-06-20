@@ -10,7 +10,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" th:href="@{/css/form.css}" />
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 
@@ -22,11 +22,12 @@
 
 
 <div class="container mt-5">
-    <h2 class="mb-4">Carica un nuovo video</h2>
 
     <div th:if="${uploadError}" class="alert alert-danger" th:text="${uploadError}"></div>
 
-    <form th:object="${tratta}" th:action="@{'/admin/addTratta'}" method="post" enctype="multipart/form-data">
+    <form class="form-container shadow p-4 w-100" th:object="${tratta}" th:action="@{'/admin/addTratta'}" method="post" enctype="multipart/form-data">
+
+        <h2 class="mb-4">Aggiungi una nuova tratta</h2>
 
         <!-- Specifica il Nome-->
         <div class="mb-3">
@@ -42,6 +43,9 @@
 
         <button type="submit" class="btn btn-primary">Aggiungi Tratta</button>
     </form>
+
+    <img class="image-of-form" src="/images/Tratta.png">
+
 </div>
 
 </body>

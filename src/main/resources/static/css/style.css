@@ -1,39 +1,33 @@
-/* style.css - Stili generici del sito */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 body {
 	margin: 0;
-	padding-top: 70px; /* spazio per navbar fissa */
+	padding-top: 70px;
 	font-family: 'Poppins', sans-serif;
-	background-color: #ffffff;
-	height: 100vh;
+	background-size: cover;
+	color: #000000;
 }
 
-.container-fluid, .row {
-	margin: 0;
-	padding: 0;
-	position: relative;
-}
-
+/* Bottone scuro personalizzato */
 .btn-navy {
-	background-color: #003366;
-	color: white;
-	padding: 14px 45px;
-	font-size: 1.1rem;
-	border-radius: 50px;
+	background-color: #111111;
+	color: #ffffff;
 	border: none;
-	transition: all 0.3s ease;
-	box-shadow: 0 4px 12px rgba(0, 51, 102, 0.25);
+	padding: 14px 36px;
+	border-radius: 32px;
+	font-weight: 700;
+	font-size: 1.1rem;
+	letter-spacing: 1px;
+	text-decoration: none;
+	transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-navy:hover {
-	background-color: #002b55;
-	box-shadow: 0 6px 18px rgba(0, 43, 85, 0.4);
+	background-color: #333333;
 	transform: scale(1.05);
 }
 
-@media (max-width: 767px) {
-	.login-box {
-		max-width: 90%;
-		padding: 40px 30px;
-	}
+/* Utilità globali */
+.full-height {
+	height: calc(100vh - 140px); /* 100vh meno spazio logo */
 }

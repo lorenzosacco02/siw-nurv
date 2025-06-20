@@ -19,7 +19,6 @@ public class Video {
 	@ManyToOne
 	private User user;
 
-	@Past(message = "La data deve essere al passato")
 	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Anomalia> anomalie;
 	

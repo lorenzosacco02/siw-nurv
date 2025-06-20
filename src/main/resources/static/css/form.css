@@ -1,0 +1,119 @@
+/* ===== Container principale ===== */
+.container {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+}
+
+/* ===== Form login ===== */
+.form-container {
+    background-color: rgba(240, 240, 240, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 100%;
+    padding: 40px 30px;
+    animation: fadeSlideUp 0.8s forwards;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.form-container h2 {
+    font-weight: 700;
+    color: #8B0000;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* ===== Input e label ===== */
+.form-label {
+    font-weight: 600;
+    color: #222;
+}
+
+.input-group-text {
+    background-color: #e6e6e6;
+    border: none;
+    border-right: 1px solid #ccc;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+}
+
+/* ===== Pulsanti ===== */
+.btn-primary {
+    background-color: #111;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #333;
+    transform: scale(1.03);
+}
+
+.btn-outline-danger {
+    font-weight: 600;
+    border-radius: 50px;
+}
+
+/* ===== Link ===== */
+a.text-decoration-none {
+    font-weight: 600;
+    color: #8B0000;
+}
+
+a.text-decoration-none:hover {
+    text-decoration: underline;
+}
+
+/* ===== Alert errore ===== */
+.alert-danger {
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+/* ===== Animazione in entrata ===== */
+@keyframes fadeSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.image-of-form{
+    flex: 0 0 400px;
+    height: 600px;
+}
+
+/*!* ===== Spazio immagine accanto al form ===== *!*/
+/*.container::before {*/
+/*    content: "";*/
+/*    display: block;*/
+/*    flex: 0 0 400px;*/
+/*    height: 600px;*/
+/*    background-image: url('/images/Operaio.png'); !* <-- Cambia con il tuo path *!*/
+/*    background-size: contain;*/
+/*    background-position: center;*/
+/*    border-radius: 16px;*/
+/*    animation: fadeSlideUp 0.8s forwards;*/
+/*    transform: translateY(20px);*/
+/*    opacity: 0;*/
+/*}*/
+
+
+/* ===== Responsive: opzionale, puoi anche evitare se non vuoi media queries ===== */
+/* @media (max-width: 992px) {
+    .container::before {
+        display: none;
+    }
+} */

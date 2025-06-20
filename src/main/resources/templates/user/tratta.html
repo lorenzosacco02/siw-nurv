@@ -63,7 +63,7 @@
 
                 <!-- Anomalie -->
                 <div id="listaAnomalie" class="anomalie-video p-3 border rounded shadow-sm bg-light mx-3">
-                    <h4 class="text-primary mb-3" th:text="'Anomalie nel video ' + ${video.nome}">Anomalie</h4>
+                    <h4 class="card-title mb-3" th:text="'Anomalie nel video ' + ${video.nome}">Anomalie</h4>
 
                     <ul class="list-group" th:if="${video.anomalie != null and !video.anomalie.isEmpty()}">
                         <li class="list-group-item"
