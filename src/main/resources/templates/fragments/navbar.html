@@ -28,7 +28,10 @@
             <!-- UTENTE ADMIN -->
             <li class="nav-item" th:if="${userDetails != null and isAdmin}">
                 <a class="nav-link d-flex align-items-center" href="/profile" title="Profilo">
-                    <i class="bi bi-person-circle me-1"></i> <span th:text="${userDetails.username}">Admin</span>
+                    <img th:src="@{'/user/' + ${user.id} + '/profilePic'}"
+                         th:alt="${userDetails.username}"
+                         class="profile-pic-nav"
+                         onerror="this.onerror=null;this.src='/images/profilePlaceholder.png';"/>
                 </a>
             </li>
             <li class="nav-item" th:if="${userDetails != null and isAdmin}">

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Video {
@@ -17,7 +18,8 @@ public class Video {
 	
 	@ManyToOne
 	private User user;
-	
+
+	@Past(message = "La data deve essere al passato")
 	@OneToMany(mappedBy = "video", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Anomalia> anomalie;
 	
