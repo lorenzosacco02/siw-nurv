@@ -11,11 +11,15 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="/css/style.css" />
 	<link rel="stylesheet" href="/css/home.css" />
-	<link rel="stylesheet" href="/css/navbar.css">
+
 </head>
 <body>
 
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<!-- Logo grande fuori dalla navbar -->
+<div class="logo-big-container">
+	<img src="/images/Logo.png" alt="Logo Grande" class="logo-big" />
+</div>
+
 <div class="container-fluid p-0">
 	<div class="row g-0 vh-100">
 		<!-- Box Login -->
