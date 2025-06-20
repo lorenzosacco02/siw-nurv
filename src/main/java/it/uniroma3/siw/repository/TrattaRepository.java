@@ -30,7 +30,4 @@ public interface TrattaRepository extends CrudRepository<Tratta, Long> {
                 ORDER BY t.nome ASC
             """, nativeQuery = true)
     Iterable<Tratta> findByCriteria(@Param("nome") String nome, @Param("anomalia") String anomalia);
-
-    List<Tratta> findByNomeOrederdById(String nome);
-
 }
