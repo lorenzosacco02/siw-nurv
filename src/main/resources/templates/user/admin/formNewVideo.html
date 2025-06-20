@@ -10,7 +10,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" th:href="@{/css/form.css}" />
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 
@@ -21,11 +21,11 @@
 
 
 <div class="container mt-5">
-    <h2 class="mb-4">Carica un nuovo video</h2>
-
     <div th:if="${uploadError}" class="alert alert-danger" th:text="${uploadError}"></div>
 
-    <form th:action="@{'/admin/addVideo/' + ${tratta_id}}" method="post" enctype="multipart/form-data">
+    <form class="form-container shadow p-4 w-100" th:action="@{'/admin/addVideo/' + ${tratta_id}}" method="post" enctype="multipart/form-data">
+        <h2 class="mb-4">Carica un nuovo video</h2>
+
         <div class="mb-3">
             <label for="nome" class="form-label">Titolo del Video</label>
             <input type="text" class="form-control" id="nome" name="nome" placeholder="Inserisci un titolo del video" required>
@@ -44,6 +44,9 @@
 
         <button type="submit" class="btn btn-primary">Carica Video</button>
     </form>
+
+    <img class="image-of-form" src="/images/Video.png">
+
 </div>
 
 </body>

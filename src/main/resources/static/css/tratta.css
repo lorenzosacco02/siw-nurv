@@ -1,95 +1,211 @@
-.video-info h5 {
-    font-weight: 600;
-    margin-bottom: 0.2rem;
+/* Contenitore principale più largo */
+.container.my-5 {
+    max-width: 1100px; /* aumentato da 900px */
 }
 
-.video-info small {
-    display: block;
-}
-
-
-.anomaly-btn {
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 0.5rem 1.2rem;
-    box-shadow: 0 3px 8px rgba(220, 53, 69, 0.5);
-    transition: background-color 0.3s ease;
-    position: relative;
-    z-index: 2;
-}
-
-
-.anomaly-btn:hover {
-    background-color: #b02a37;
-    box-shadow: 0 5px 12px rgba(176, 42, 55, 0.7);
-}
-
-.anomalie-video {
-    margin-top: 1rem;
-}
-
-.gravita-badge {
-    font-size: 1rem;
-    min-width: 2.2em;
+/* Titolo tratta ingrandito */
+h2 {
+    font-weight: 700;
+    font-size: 3rem; /* aumentato da 2.5rem */
+    color: #8B0000;
     text-align: center;
-    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.5);
 }
 
-.carousel-item {
-    padding-bottom: 2rem;
+/* Descrizione tratta più grande */
+p.text-muted.text-center {
+    font-size: 1.25rem; /* da 1.1rem */
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+    font-style: italic;
 }
 
-
- .carousel-control-prev,
- .carousel-control-next {
-     top: 50%;
-     transform: translateY(-50%);
-     width: 4rem;
-     height: 4rem;
-     background-color: rgba(0, 0, 0, 0.3);
-     border-radius: 50%;
-     justify-content: center;
-     align-items: center;
-     display: flex;
- }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-size: 70% 70%;
+/* Carousel wrapper più grande */
+#videoCarousel {
+    box-shadow: 0 12px 35px rgba(139, 0, 0, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 1000px; /* più largo */
+    margin: 0 auto;
 }
 
-/* Impedisci che il form venga coperto */
-.carousel-inner {
-    position: relative;
-    z-index: 1;
-}
-
-.form-check {
-    margin-top: 0.5rem;
-}
-
+/* Video wrapper */
 .video-wrapper {
     position: relative;
 }
 
+/* Video più grande */
+.video-wrapper video {
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+
+/* Carousel controls più grandi */
 .small-carousel-control {
-    position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    width: 3rem;
-    height: 3rem;
-    background-color: rgba(0, 0, 0, 0.3);
+    width: 44px; /* più grandi */
+    height: 44px;
+    background-color: rgba(139, 0, 0, 0.75);
     border-radius: 50%;
-    z-index: 2;
+    transform: translateY(-50%);
+    transition: background-color 0.3s ease;
+}
+
+.small-carousel-control:hover {
+    background-color: #8B0000;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(110%) contrast(105%);
+}
+
+/* Info video più grande */
+.video-info h5 {
+    color: #8B0000;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    font-size: 1.35rem; /* aumentato */
+}
+
+.video-info small {
+    font-size: 0.95rem; /* aumentato */
+    color: #666;
+}
+
+/* Bottone segnala anomalia più grande */
+.btn-danger.anomaly-btn {
+    background-color: #8B0000;
+    border: none;
+    font-weight: 700;
+    padding: 0.6rem 1.2rem;
+    border-radius: 14px;
+    box-shadow: 0 8px 16px rgba(139, 0, 0, 0.35);
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-danger.anomaly-btn:hover {
+    background-color: #5a0000;
+    box-shadow: 0 10px 22px rgba(90, 0, 0, 0.5);
+}
+
+/* Lista anomalie con margini più ampi */
+.anomalie-video {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 12px; /* per scrollbar */
+    margin-bottom: 15px;
+}
+
+.anomalie-video h4 {
+    color: #8B0000;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    font-size: 1.6rem;
+}
+
+/* Items lista anomalie più grandi e puliti */
+.list-group-item {
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    margin-bottom: 0.65rem;
+    padding: 1.2rem 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    font-size: 1.05rem;
+}
+
+/* Tipo e descrizione anomalia */
+.list-group-item strong {
+    color: #8B0000;
+    font-weight: 700;
+}
+
+/* BADGE GRAVITA dentro triangolo di pericolo */
+
+/* Wrapper del triangolo */
+/* Badge gravità con triangolo pericolo */
+
+.badge.bg-danger {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    background-color: transparent !important;
+    color: #8B0000 !important;
+    font-weight: 700;
+    font-size: 1.3rem;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    user-select: none;
+    padding: 0;
 }
 
-.carousel-control-prev.small-carousel-control {
-    left: 1rem;
+/* Numero gravità sopra il triangolo */
+.badge.bg-danger {
+    line-height: 38px;
 }
 
-.carousel-control-next.small-carousel-control {
-    right: 1rem;
+/* Checkbox admin */
+.form-check-label {
+    color: #444;
+    font-weight: 600;
+}
+
+.form-check-input:checked {
+    background-color: #8B0000;
+    border-color: #8B0000;
+}
+
+/* Stato risolto/non risolto non admin */
+.text-muted {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Scrollbar personalizzata */
+.anomalie-video::-webkit-scrollbar {
+    width: 10px;
+}
+
+.anomalie-video::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 16px;
+}
+
+.anomalie-video::-webkit-scrollbar-thumb {
+    background-color: #8B0000;
+    border-radius: 16px;
+    border: 3px solid #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container.my-5 {
+        padding: 0 20px;
+    }
+
+    h2 {
+        font-size: 2.3rem;
+    }
+
+    .btn-danger.anomaly-btn {
+        width: 100%;
+        padding: 0.9rem 0;
+        font-size: 1.15rem;
+    }
+
+    .badge.bg-danger {
+        width: 36px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    .badge.bg-danger::before {
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        border-top: 32px solid #8B0000;
+    }
 }

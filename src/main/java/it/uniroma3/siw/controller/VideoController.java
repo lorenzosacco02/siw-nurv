@@ -75,7 +75,6 @@ public class VideoController {
         User utente = userService.getCurrentUser(); // o usa principal.getName()
         Tratta tratta = trattaService.getById(tratta_id);
 
-
         if (file.isEmpty() || tratta == null) {
             return "redirect:/admin/addVideo/" + tratta_id; // oppure mostra messaggio più chiaro
         }
@@ -93,6 +92,8 @@ public class VideoController {
         video.setFile(file.getBytes());
         video.setTratta(tratta);
         video.setUser(utente); // se Video ha un campo 'utente'
+
+
 
         videoService.save(video);
 

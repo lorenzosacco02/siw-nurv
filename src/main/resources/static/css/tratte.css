@@ -1,0 +1,169 @@
+/* === Filtri / Form di ricerca === */
+form .row {
+    background-color: rgb(121 25 13 / 10%);
+    /* chiaro ma non bianco */
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.12);
+}
+
+label.form-label {
+    font-weight: 600;
+    color: #4b4b4b;
+}
+
+.form-select,
+.form-control {
+    border-radius: 12px;
+    border: 1.5px solid #8B0000; /* bordeaux */
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #111;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.form-select:focus,
+.form-control:focus {
+    border-color: #5a0000;
+    box-shadow: 0 0 6px rgba(139, 0, 0, 0.5);
+    outline: none;
+}
+
+button.btn-primary {
+    background-color: #8B0000;
+    border: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 10px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-primary:hover {
+    background-color: #5a0000;
+    transform: scale(1.05);
+}
+
+/* === Titolo sezione === */
+h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #8B0000; /* bordeaux */
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.4);
+    margin-bottom: 30px;
+}
+
+/* === Card delle tratte === */
+.card {
+    flex: 1 1 100%;
+    min-height: 320px;
+    max-height: 320px;
+    min-width: 320px;
+    max-width: 400px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+/* Forza colore titolo e rimuovi text-primary bootstrap */
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #8B0000 !important;
+    margin-bottom: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #444;
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* Pulsante visualizza dettagli */
+.btn-outline-primary {
+    border-color: #8B0000;
+    color: #8B0000;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 8px 16px;
+    align-self: flex-start;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #8B0000;
+    color: #fff;
+}
+
+/* Pulsante elimina */
+.btn-danger {
+    font-size: 0.9rem;
+    padding: 4px 9px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+/* Card "Aggiungi nuova tratta" - dimensioni e colori coerenti */
+.card.bg-light.d-flex {
+    min-height: 320px; /* altezza uguale alle altre */
+    max-height: 320px;
+    min-width: 320px;
+    max-width: 400px; /* larghezza coerente */
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    transition: background-color 0.3s ease;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    color: #8B0000 !important; /* forza colore testo */
+    padding: 20px;
+}
+
+.card.bg-light.d-flex:hover {
+    background-color: #f5dcdc;
+}
+
+.card-body.text-center .display-3 {
+    color: #8B0000;
+    font-weight: 900;
+    user-select: none;
+}
+
+.card-body.text-center .h5 {
+    color: #8B0000;
+    font-weight: 700;
+}
+
+/* === Griglia di card con dimensioni fisse e centratura === */
+.row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center; /* centra se meno di 3 card */
+}
+
+/* Fissa larghezza minima e massima per uniformità card */
+.row.g-4 > div {
+    flex: 0 1 400px; /* larghezza fissa circa 400px, riduce se spazio stretto */
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+}
