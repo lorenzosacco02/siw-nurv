@@ -46,9 +46,9 @@
         </div>
 
         <div class="mb-3">
-            <input type="file" class="form-control" th:field="*{multipartFile}" />
+            <label for="multipartFile" class="form-label">Carica un video</label>
+            <input type="file" class="form-control" th:field="*{multipartFile}" id="multipartFile" name="multipartFile" placeholder="Nessun Video Caricato"/>
             <div class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></div>
-            <div class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="${multipartFile}"></div>
         </div>
 
         <button type="submit" class="btn btn-primary">Carica Video</button>

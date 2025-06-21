@@ -76,16 +76,10 @@ public class VideoController {
                               @PathVariable Long tratta_id,
                               Model model) throws IOException {
 
-        MultipartFile file = video.getMultipartFile();
+        video.setTratta(trattaService.getById(tratta_id));
+        video.setUser(userService.getCurrentUser());
 
-        if (file == null || file.isEmpty()) {
-            bindingResult.rejectValue("multipartFile", "Video.blank", "Devi caricare un file.");
-        } else if (file.getSize() > Video.MAX_SIZE) {
-            bindingResult.rejectValue("multipartFile", "Video.tooLarge", "Il file supera il limite di 50MB.");
-        } else {
-            video.setFile(file.getBytes());
-        }
-
+        videoValidator.validate(video, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userService.getCurrentUser());
             model.addAttribute("video", video);
@@ -93,9 +87,7 @@ public class VideoController {
             return "user/admin/formNewVideo";
         }
 
-        video.setTratta(trattaService.getById(tratta_id));
-        video.setUser(userService.getCurrentUser());
-
+        video.setFile(video.getMultipartFile().getBytes());
         videoService.save(video);
 
         return "redirect:/tratta/" + tratta_id;

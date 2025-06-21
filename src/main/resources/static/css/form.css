@@ -95,6 +95,17 @@ a.text-decoration-none:hover {
     height: 600px;
 }
 
+.image-of-form-profile {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+}
+
+.image-of-form-danger{
+    height: 400px;
+    object-fit: cover;
+}
+
 /*!* ===== Spazio immagine accanto al form ===== *!*/
 /*.container::before {*/
 /*    content: "";*/

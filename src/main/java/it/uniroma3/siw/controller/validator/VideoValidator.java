@@ -35,12 +35,16 @@ public class VideoValidator implements Validator {
             errors.reject("Video.exists");
         }
 
-        if(video.getFile() == null){
-            errors.rejectValue("file", "Video.blank");
+        if(video.getMultipartFile() == null || video.getMultipartFile().isEmpty()){
+            errors.rejectValue("multipartFile", "Video.blank");
         }
 
-        if (video.getFile() != null && video.getFile().length > MAX_SIZE) {
-            errors.rejectValue("file", "Video.length");
+        if (video.getMultipartFile() != null && video.getMultipartFile().getSize() > MAX_SIZE) {
+            errors.rejectValue("multipartFile", "Video.length");
+        }
+
+        if(video.getMultipartFile().getContentType() != null && !video.getMultipartFile().getContentType().isEmpty() && !video.getMultipartFile().getContentType().equals("video/mp4")){
+            errors.rejectValue("multipartFile", "Video.type");
         }
     }
 }
