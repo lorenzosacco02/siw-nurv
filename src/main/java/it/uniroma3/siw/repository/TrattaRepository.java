@@ -32,5 +32,6 @@ public interface TrattaRepository extends CrudRepository<Tratta, Long> {
     Iterable<Tratta> findByCriteria(@Param("nome") String nome, @Param("anomalia") String anomalia);
 
 
-
+    @Query(value = "SELECT * FROM tratta WHERE LOWER(REPLACE(nome, ' ', '')) LIKE :name", nativeQuery = true)
+    Tratta getByNomeIgnoreCaseSpaceInsensitive(@Param("name") String name);
 }

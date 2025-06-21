@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Tratta {
@@ -11,9 +12,11 @@ public class Tratta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "Inserisci un nome per la tratta")
 	@Column(nullable=false)
 	private String nome;
 
+	@NotBlank(message = "Inserisci una descrizione per la tratta")
 	private String descrizione;
 
 	@OneToMany(mappedBy="tratta", cascade=CascadeType.REMOVE)

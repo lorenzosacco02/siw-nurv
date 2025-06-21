@@ -3,6 +3,10 @@ package it.uniroma3.siw.model;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Anomalia {
@@ -12,8 +16,12 @@ public class Anomalia {
 
 	private boolean risolta = false;
 
+	@Min(value = 1, message = "Inserisci un valore maggiore o uguale a 0")
+	@Max(value = 5, message = "Inserisci un valore minore o uguale a 5")
 	private int gravita;
 
+	@NotBlank(message = "Inserisci una descrizione")
+	@Length(max = 100)
 	private String descrizione;
 
 	@Enumerated(EnumType.STRING)

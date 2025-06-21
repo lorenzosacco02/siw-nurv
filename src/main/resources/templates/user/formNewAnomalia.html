@@ -28,28 +28,33 @@
         
         <div class="mb-3">
             <label class="form-label">Tipo di Anomalia</label>
-            <select class="form-select" th:field="*{tipoAnomalia}" required>
+            <select class="form-select" th:field="*{tipoAnomalia}">
+                <option value = "">-- Nessuna selezione --</option> <!-- Opzione vuota -->
                 <option th:each="tipo : ${T(it.uniroma3.siw.model.TipoDiAnomalia).values()}"
                         th:value="${tipo}" th:text="${tipo}"></option>
             </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('tipoAnomalia')}" th:errors="*{tipoAnomalia}"></div>
         </div>
 
         <!-- Setta Gravita -->
         <div class="mb-3">
             <label class="form-label">Gravità</label>
-            <select th:field="*{gravita}" class="form-select" id="rating" required>
+            <select th:field="*{gravita}" class="form-select" id="rating">
+                <option th:value="0">-- Nessuna selezione --</option> <!-- Opzione vuota -->
                 <option th:value="1">1</option>
                 <option th:value="2">2</option>
                 <option th:value="3">3</option>
                 <option th:value="4">4</option>
                 <option th:value="5">5</option>
             </select>
+            <div class="text-danger" th:if="${#fields.hasErrors('gravita')}" th:errors="*{gravita}"></div>
         </div>
 
         <!-- Scrivi Descrizione -->
         <div class="mb-3">
             <label class="form-label">Descrizione</label>
-            <textarea class="form-control" th:field="*{descrizione}" rows="3" required></textarea>
+            <textarea class="form-control" th:field="*{descrizione}" rows="3"></textarea>
+            <div class="text-danger" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></div>
         </div>
 
         <!-- Risolta -->
