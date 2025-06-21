@@ -1,11 +1,14 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.validator.TrattaValidator;
 import it.uniroma3.siw.model.Tratta;
 import it.uniroma3.siw.service.TrattaService;
 import it.uniroma3.siw.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,8 @@ public class TrattaController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private TrattaValidator trattaValidator;
 
     @GetMapping("/tratta/{id}")
     public String dettaglioTratta(@PathVariable Long id,
@@ -43,8 +48,15 @@ public class TrattaController {
     }
 
     @PostMapping("/admin/addTratta")
-    public String saveTratta(@ModelAttribute Tratta tratta,
+    public String saveTratta(@Valid @ModelAttribute Tratta tratta,
+                             BindingResult bindingResult,
                              Model model) {
+        trattaValidator.validate(tratta, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userService.getCurrentUser());
+            model.addAttribute("tratta", tratta);
+            return "user/admin/formNewTratta";
+        }
         model.addAttribute("user", userService.getCurrentUser());
         trattaService.save(tratta);
         return "redirect:/tratta/" + tratta.getId();

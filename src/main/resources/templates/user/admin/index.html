@@ -10,25 +10,34 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/adminIndex.css" />
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-
-<div class="container-fluid p-0">
-    <div class="row g-0 vh-100">
-        <!-- Box Login -->
-        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+<div class="container py-5">
+    <!-- Primo Box -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6 order-md-1">
             <div class="login-box text-center">
                 <h2 class="title">Aggiungi Video</h2>
                 <p class="subtitle">Aggiungi video di una tratta</p>
                 <a href="/admin/addVideo" class="btn btn-navy mt-3">Video</a>
             </div>
         </div>
-        <!-- Box Cliente -->
-        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="/images/Video.png" alt="Aggiungi Video" class="box-image">
+        </div>
+    </div>
+
+    <!-- Secondo Box -->
+    <div class="row align-items-center">
+        <div class="col-md-6 order-md-1 text-center">
+            <img src="/images/Tratta.png" alt="Vedi le tratte" class="box-image">
+        </div>
+        <div class="col-md-6 order-md-2">
             <div class="login-box text-center">
                 <h2 class="title">Vedi le tratte</h2>
                 <p class="subtitle">Esplora le tratte e verifica le anomalie</p>
@@ -37,5 +46,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

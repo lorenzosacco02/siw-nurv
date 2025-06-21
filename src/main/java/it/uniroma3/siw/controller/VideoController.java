@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.controller.validator.VideoValidator;
 import it.uniroma3.siw.model.Tratta;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.Video;
@@ -7,6 +8,7 @@ import it.uniroma3.siw.repository.VideoRepository;
 import it.uniroma3.siw.service.TrattaService;
 import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.service.VideoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,6 +37,8 @@ public class VideoController {
     private UserService userService;
     @Autowired
     private TrattaService trattaService;
+    @Autowired
+    private VideoValidator videoValidator;
 
     @GetMapping("/video/{id}/stream")
     public ResponseEntity<byte[]> streamVideo(@PathVariable Long id) {
@@ -59,46 +64,35 @@ public class VideoController {
 
     @GetMapping("/admin/addVideo/{tratta_id}")
     public String addVideoTratta(@PathVariable Long tratta_id, Model model) {
+        model.addAttribute("video", new Video());
         model.addAttribute("user", userService.getCurrentUser());
         model.addAttribute("tratta", tratta_id);
         return "user/admin/formNewVideo";
     }
 
     @PostMapping("/admin/addVideo/{tratta_id}")
-    public String uploadVideo(@RequestParam("file") MultipartFile file,
-                              @RequestParam("nome") String nome,
-                              @RequestParam("data") LocalDate data,
+    public String uploadVideo(@Valid @ModelAttribute Video video,
+                              BindingResult bindingResult,
                               @PathVariable Long tratta_id,
-                              RedirectAttributes redirectAttributes,
                               Model model) throws IOException {
 
-        User utente = userService.getCurrentUser(); // o usa principal.getName()
-        Tratta tratta = trattaService.getById(tratta_id);
+        video.setTratta(trattaService.getById(tratta_id));
+        video.setUser(userService.getCurrentUser());
 
-        if (file.isEmpty() || tratta == null) {
-            return "redirect:/admin/addVideo/" + tratta_id; // oppure mostra messaggio più chiaro
+        videoValidator.validate(video, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userService.getCurrentUser());
+            model.addAttribute("video", video);
+            model.addAttribute("tratta", tratta_id);
+            return "user/admin/formNewVideo";
         }
 
-        if (file.getSize() > MAX_SIZE) {
-            redirectAttributes.addFlashAttribute("uploadError", "Il file supera la dimensione massima consentita di 50MB.");
-            return "redirect:/admin/addVideo/" + tratta_id;
-        }
-
-
-        Video video = new Video();
-
-        video.setData(data);
-        video.setNome(nome);
-        video.setFile(file.getBytes());
-        video.setTratta(tratta);
-        video.setUser(utente); // se Video ha un campo 'utente'
-
-
-
+        video.setFile(video.getMultipartFile().getBytes());
         videoService.save(video);
 
-        model.addAttribute("user", utente);
-        return "redirect:/tratta/" + tratta_id; // oppure /video/success
+        return "redirect:/tratta/" + tratta_id;
     }
+
+
 
 }

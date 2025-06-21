@@ -36,6 +36,7 @@ public class TrattaService {
     public void delete(Long trattaId) {
         this.trattaRepository.deleteById(trattaId);
     }
+
     @Transactional
     public List<Tratta> getFilteredSorted(String sort, String nome, TipoDiAnomalia anomalia) {
         List<Tratta> tratte = (List<Tratta>) this.trattaRepository.findByCriteria(nome, (anomalia != null) ? anomalia.name() : null);
@@ -95,5 +96,9 @@ public class TrattaService {
         return tratte;
     }
 
+    @Transactional
+    public Tratta getByName(String name) {
+        return this.trattaRepository.getByNomeIgnoreCaseSpaceInsensitive(name.replace(" ", "").toLowerCase());
+    }
 }
 

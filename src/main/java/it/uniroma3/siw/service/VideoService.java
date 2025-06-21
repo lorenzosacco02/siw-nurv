@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 
+import it.uniroma3.siw.model.Tratta;
 import it.uniroma3.siw.model.Video;
 import it.uniroma3.siw.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class VideoService {
 
     public void save(Video video) {
         this.videoRepository.save(video);
+    }
+
+    public Video getByNomeInTratta(String nome, Tratta tratta) {
+        return videoRepository.findByNomeInTratta(nome.replace(" ", "").toLowerCase(), tratta.getId());
     }
 }

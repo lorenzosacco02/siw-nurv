@@ -23,23 +23,32 @@
 <div class="container mt-5">
     <div th:if="${uploadError}" class="alert alert-danger" th:text="${uploadError}"></div>
 
-    <form class="form-container shadow p-4 w-100" th:action="@{'/admin/addVideo/' + ${tratta_id}}" method="post" enctype="multipart/form-data">
+    <form class="form-container shadow p-4 w-100" th:action="@{'/admin/addVideo/' + ${tratta_id}}" th:object="${video}" method="post" enctype="multipart/form-data">
+
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+
         <h2 class="mb-4">Carica un nuovo video</h2>
 
         <div class="mb-3">
             <label for="nome" class="form-label">Titolo del Video</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Inserisci un titolo del video" required>
+            <input type="text" class="form-control" th:field="*{nome}" id="nome" name="nome" placeholder="Inserisci un titolo del video">
+            <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
         </div>
 
         <!-- Data di nascita -->
         <div class="mb-3">
             <label for="data" class="form-label">Data di Registrazione</label>
-            <input type="date" class="form-control" id="data" name="data" placeholder="Inserisci una Data di Registrazione" required>
+            <input type="date" class="form-control" th:field="*{data}" id="data" name="data" placeholder="Inserisci una Data di Registrazione">
+            <div class="text-danger" th:if="${#fields.hasErrors('data')}" th:errors="*{data}"></div>
         </div>
 
         <div class="mb-3">
-            <label for="file" class="form-label">Seleziona il file video</label>
-            <input type="file" class="form-control" id="file" name="file" accept="video/*" required>
+            <label for="multipartFile" class="form-label">Carica un video</label>
+            <input type="file" class="form-control" th:field="*{multipartFile}" id="multipartFile" name="multipartFile" placeholder="Nessun Video Caricato"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></div>
         </div>
 
         <button type="submit" class="btn btn-primary">Carica Video</button>

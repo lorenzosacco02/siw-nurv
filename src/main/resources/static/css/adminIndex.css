@@ -1,0 +1,56 @@
+body {
+    background: url('/img/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.login-box:hover {
+    transform: scale(1.02);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #8B0000;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.btn-navy {
+    background-color: #111111;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-navy:hover {
+    transform: scale(1.02);
+    background-color: #8B0000;
+    color: #fff;
+}
+
+.box-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Optional: smoother layout spacing */
+.container .row {
+    margin-bottom: 4rem;
+}

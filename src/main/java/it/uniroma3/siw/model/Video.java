@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Video {
 
-	public static final long MAX_SIZE = 100L * 1024 * 1024;
+	public static final int MAX_SIZE = 50 * 1024 * 1024;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,11 +29,17 @@ public class Video {
 	@ManyToOne
 	private Tratta tratta;
 
+	@Transient
+	private MultipartFile multipartFile;
+
 	@Column(columnDefinition = "bytea")
 	private byte[] file;
-	
+
+	@Past(message = "Inserisci una data nel passato")
+	@NotNull(message = "Inserisci una data")
 	private LocalDate data;
 
+	@NotBlank(message = "Inserisci un Nome")
 	private String nome;
 
 	public LocalDate getData() {
@@ -86,6 +96,14 @@ public class Video {
 
 	public void setFile(byte[] file) {
 		this.file = file;
+	}
+
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
 	}
 
 	@Override
