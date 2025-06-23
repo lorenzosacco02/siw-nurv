@@ -15,9 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -87,6 +89,20 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace(); // oppure loggalo
             // Puoi anche aggiungere un messaggio all'utente tipo "Errore nel caricamento immagine stock"
+        }
+    }
+
+    @Transactional
+    public List<String> loadStockImages() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        try (InputStream inputStream = classLoader.getResourceAsStream("stock-images.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            return reader.lines()
+                    .filter(line -> !line.isBlank())
+                    .collect(Collectors.toList());
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
         }
     }
 }
