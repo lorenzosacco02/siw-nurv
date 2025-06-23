@@ -62,11 +62,9 @@ public class UserController {
         if (!Objects.equals(userService.getCurrentUser().getId(), id))
             return "redirect:/accessDenied";
 
+
         // Leggi le immagini dalla cartella static
-        File folder = new File("src/main/resources/static/images/stock");
-        List<String> stockImages = Arrays.stream(folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".jpeg")))
-                .map(File::getName)
-                .collect(Collectors.toList());
+        List<String> stockImages = userService.loadStockImages();
 
         model.addAttribute("images", stockImages);
         model.addAttribute("user", user);
